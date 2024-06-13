@@ -1,0 +1,44 @@
+body {
+    background-image: url("{{ url_for('static', filename='images/background.jpg') }}");
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+#map {
+    height: 85vh;
+    margin: 10px;
+}
+
+#info-panel {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    display: none;
+    z-index: 1000;
+}
+
+.info-content {
+    margin-top: 10px;
+}
+
+#weather-data, #air-quality-data {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+canvas {
+    margin-top: 10px;
+}
