@@ -3,9 +3,6 @@ const fetchCurrentWeather = async () => {
         const response = await fetch('/weather/current');
         const data = await response.json();
         document.getElementById('weather-data').innerText = `Temperature: ${(data.main.temp - 273.15).toFixed(2)}°C, Condition: ${data.weather[0].description}`;
-        document.getElementById('weather-data').classList.remove('d-none');
-        document.getElementById('air-quality-data').classList.add('d-none');
-        document.getElementById('forecast-chart').classList.add('d-none');
     } catch (error) {
         document.getElementById('weather-data').innerText = 'Error fetching current weather data';
     }
@@ -37,9 +34,6 @@ const fetchAirQuality = async () => {
                 aqiDescription = 'Unknown';
         }
         document.getElementById('air-quality-data').innerText = `Air Quality Index (AQI): ${aqi} (${aqiDescription})`;
-        document.getElementById('air-quality-data').classList.remove('d-none');
-        document.getElementById('weather-data').classList.add('d-none');
-        document.getElementById('forecast-chart').classList.add('d-none');
     } catch (error) {
         document.getElementById('air-quality-data').innerText = 'Error fetching air quality data';
     }
@@ -84,25 +78,7 @@ const fetchWeatherForecast = async () => {
                 }
             }
         });
-        document.getElementById('forecast-chart').classList.remove('d-none');
-        document.getElementById('weather-data').classList.add('d-none');
-        document.getElementById('air-quality-data').classList.add('d-none');
     } catch (error) {
         document.getElementById('forecast-chart').innerText = 'Error fetching weather forecast data';
     }
-};
-
-const showWeather = () => {
-    document.getElementById('info-panel').classList.remove('d-none');
-    fetchCurrentWeather();
-};
-
-const showAirQuality = () => {
-    document.getElementById('info-panel').classList.remove('d-none');
-    fetchAirQuality();
-};
-
-const showWeatherForecast = () => {
-    document.getElementById('info-panel').classList.remove('d-none');
-    fetchWeatherForecast();
 };
