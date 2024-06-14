@@ -21,18 +21,63 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="30" height="30"> Raipur Dashboard</a>
             <div class="ml-auto">
-                <button class="btn btn-light" onclick="showWeather()"><img src="{{ url_for('static', filename='images/weather.png') }}" alt="Weather" width="30" height="30"></button>
-                <button class="btn btn-light" onclick="showAirQuality()"><img src="{{ url_for('static', filename='images/air_quality.png') }}" alt="Air Quality" width="30" height="30"></button>
-                <button class="btn btn-light" onclick="showWeatherForecast()"><img src="{{ url_for('static', filename='images/forecast.png') }}" alt="Forecast" width="30" height="30"></button>
+                <button class="btn btn-light" data-toggle="modal" data-target="#weatherModal"><img src="{{ url_for('static', filename='images/weather.png') }}" alt="Weather" width="30" height="30"></button>
+                <button class="btn btn-light" data-toggle="modal" data-target="#airQualityModal"><img src="{{ url_for('static', filename='images/air_quality.png') }}" alt="Air Quality" width="30" height="30"></button>
+                <button class="btn btn-light" data-toggle="modal" data-target="#forecastModal"><img src="{{ url_for('static', filename='images/forecast.png') }}" alt="Forecast" width="30" height="30"></button>
             </div>
         </nav>
 
         <div id="map" style="height: 85vh; margin: 10px;"></div>
 
-        <div id="info-panel" class="info-panel">
-            <div id="weather-data" class="info-content d-none"></div>
-            <div id="air-quality-data" class="info-content d-none"></div>
-            <canvas id="forecast-chart" class="info-content d-none" width="400" height="200"></canvas>
+        <!-- Weather Modal -->
+        <div class="modal fade" id="weatherModal" tabindex="-1" aria-labelledby="weatherModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="weatherModalLabel">Current Weather</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="weather-data"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Air Quality Modal -->
+        <div class="modal fade" id="airQualityModal" tabindex="-1" aria-labelledby="airQualityModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="airQualityModalLabel">Air Quality</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="air-quality-data"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forecast Modal -->
+        <div class="modal fade" id="forecastModal" tabindex="-1" aria-labelledby="forecastModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="forecastModalLabel">Weather Forecast</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <canvas id="forecast-chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -41,6 +86,18 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             interleave(map); // Calling the function from demo.js to initialize the map
+        });
+
+        $('#weatherModal').on('show.bs.modal', function (event) {
+            fetchCurrentWeather();
+        });
+
+        $('#airQualityModal').on('show.bs.modal', function (event) {
+            fetchAirQuality();
+        });
+
+        $('#forecastModal').on('show.bs.modal', function (event) {
+            fetchWeatherForecast();
         });
     </script>
 </body>
