@@ -48,9 +48,9 @@ var platform = new H.service.Platform({
 });
 var defaultLayers = platform.createDefaultLayers();
 
-//Step 2: initialize a map
+//Step 2: initialize a map with satellite view
 var map = new H.Map(document.getElementById('map'),
-    defaultLayers.vector.normal.map, {
+    defaultLayers.raster.satellite.map, {
     center: {lat: 21.2514, lng: 81.6296}, // Centered on Raipur, India
     zoom: 16,
     pixelRatio: window.devicePixelRatio || 1
